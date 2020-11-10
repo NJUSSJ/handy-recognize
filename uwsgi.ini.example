@@ -1,0 +1,18 @@
+[uwsgi]
+# uwsgi address and port
+socket = 127.0.0.1:8002
+# virtualenv directory
+home = /path/to/workspace/handy-calc/venv 
+# project directory
+pythonpath = /path/to/workspace/handy-calc
+chdir = /path/to/workspace/handy-calc
+env LANG="en_US.UTF-8"
+env LANGUAGE="en_US.UTF-8"
+wsgi-file = manager.py
+callable = app
+processes = 8
+threads = 8
+stats = 127.0.0.1:9192
+harakiri = 240
+socket-timeout = 240
+http-timeout = 240

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+source venv/bin/activate
+
+export FLASK_APP=manager.py
+export FLASK_ENV=production
+export FLASK_DEBUG=0
+
+export PRODUCTION_HOST="https://tokindle.top"
+export UPLOAD_FOLDER="/tmp/handy-calc"
+
+export MATHPIX_APP_ID="secret"
+export MATHPIX_APP_KEY="secret"
+
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+
+uwsgi uwsgi.ini

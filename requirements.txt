@@ -1,0 +1,7 @@
+requests~=2.24.0
+latex2sympy_custom4
+antlr4-python3-runtime==4.7.2
+Flask==1.0.2
+Flask-Cors==3.0.7
+Flask-Script==2.0.6
+sympy~=1.6.2
