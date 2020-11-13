@@ -6,6 +6,7 @@ from flask import current_app
 from latex2sympy_custom4.process_latex import process_sympy
 from sympy import Add
 import sympy
+import math
 
 
 def convert_image_to_latex(image_uri=None):
@@ -59,37 +60,60 @@ def get_latex_equation(latex_text):
 
 
 def _calculate(latex_text=None):
+    print(latex_text)
     step = 0.1
     range_bottom = -5
     range_ceil = 5
     sympy_expr = process_sympy(latex_text)
     f = sympy_expr.rewrite(Add)
-    x = sympy.symbols('x')
     y = sympy.symbols('y')
     funcs = sympy.solve(f, y)
     print(funcs)
     res = []
-    flag = 0
-    for func in funcs:
-        if flag == 0:
-            pointer = range_bottom
-            while pointer < range_ceil:
-                pointer = round(pointer, 2)
-                if func.evalf(subs={x: pointer}).is_real:
-                    res.append([str(pointer), str(round(func.evalf(subs={x: pointer}), 5))])
-                pointer += step
-            flag += 1
-        else:
-            pointer = range_ceil
-            while pointer >= range_bottom:
-                pointer = round(pointer, 2)
-                if func.evalf(subs={x: pointer}).is_real:
-                    res.append([str(pointer), str(round(func.evalf(subs={x: pointer}), 5))])
-                pointer -= step
-            flag -= 1
+    if len(funcs) == 1:
+        res = calculate_in_cartesian(funcs, range_bottom, range_ceil)
+    elif len(funcs) == 2:
+        res = calculate_in_polar(funcs, range_bottom, range_ceil)
+
     print(res)
     return res
     ## return sympy_expr.evalf()
+
+
+def calculate_in_cartesian(funcs, range_bottom, range_ceil, step=0.1):
+    x = sympy.symbols('x')
+    res = []
+    func = funcs[0]
+    pointer = range_bottom
+    while pointer <= range_ceil:
+        pointer = round(pointer, 2)
+        if func.evalf(subs={x: pointer}).is_real:
+            res.append([str(pointer), str(round(func.evalf(subs={x: pointer}), 5))])
+        pointer += step
+    return res
+
+
+def calculate_in_polar(funcs, range_bottom, range_ceil, step=6):
+    x = sympy.symbols('x')
+    y = sympy.symbols('y')
+    res = []
+    for func in funcs:
+        pointer = 0.00001
+        while pointer <= 180:
+            pointer = round(pointer, 5)
+            radius = (math.pi / 180) * pointer
+            k = math.tan(radius)
+            if radius == 0.5:
+                k = 0
+            f1 = y - k * x
+            f2 = y - func
+            point = sympy.solve([f1, f2], [x, y])
+            point_list = list(point[0])
+            point_list[0] = str(round(point_list[0], 5))
+            point_list[1] = str(round(point_list[1], 5))
+            res.append(point_list)
+            pointer += step
+    return res
 
 
 if __name__ == '__main__':
