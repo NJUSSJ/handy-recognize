@@ -7,9 +7,11 @@ from latex2sympy_custom4.process_latex import process_sympy
 from sympy import Add
 import sympy
 import math
+import datetime
 
 
 def convert_image_to_latex(image_uri=None):
+    start = datetime.datetime.now()
     if image_uri is None:
         # test mode
         file_path = '../../tmp/test3.jpg'
@@ -41,13 +43,19 @@ def convert_image_to_latex(image_uri=None):
         resp_data = json.loads(resp.text)
         if 'confidence' not in resp_data.keys() or resp_data['confidence'] < current_app.config[
             'MATHPIX_CONFIDENCE_THRESHOLD']:
+            end = datetime.datetime.now()
             return None
         if 'data' not in resp_data.keys():
+            end = datetime.datetime.now()
             return None
         for item in resp_data['data']:
             t, v = item['type'], item['value']
             if t == 'latex':
+                end = datetime.datetime.now()
+                print('recognize time: ' + str((end - start).microseconds) + ' us')
                 return v
+    end = datetime.datetime.now()
+    print('recognize time: ' + str((end - start).microseconds) + ' us')
     return None
 
 
@@ -60,8 +68,8 @@ def get_latex_equation(latex_text):
 
 
 def _calculate(latex_text=None):
+    start = datetime.datetime.now()
     print(latex_text)
-    step = 0.1
     range_bottom = -5
     range_ceil = 5
     sympy_expr = process_sympy(latex_text)
@@ -74,10 +82,10 @@ def _calculate(latex_text=None):
         res = calculate_in_cartesian(funcs, range_bottom, range_ceil)
     elif len(funcs) == 2:
         res = calculate_in_polar(funcs, range_bottom, range_ceil)
-
-    print(res)
+    end = datetime.datetime.now()
+    print('calculate time: ' + str((end - start).microseconds) + ' us')
     return res
-    ## return sympy_expr.evalf()
+    # return sympy_expr.evalf()
 
 
 def calculate_in_cartesian(funcs, range_bottom, range_ceil, step=0.1):
@@ -87,13 +95,18 @@ def calculate_in_cartesian(funcs, range_bottom, range_ceil, step=0.1):
     pointer = range_bottom
     while pointer <= range_ceil:
         pointer = round(pointer, 2)
+
+        # deal with divide 0
+        if pointer == 0:
+            pointer += step
+            continue
         if func.evalf(subs={x: pointer}).is_real:
             res.append([str(pointer), str(round(func.evalf(subs={x: pointer}), 5))])
         pointer += step
     return res
 
 
-def calculate_in_polar(funcs, range_bottom, range_ceil, step=6):
+def calculate_in_polar(funcs, range_bottom, range_ceil, step=9):
     x = sympy.symbols('x')
     y = sympy.symbols('y')
     res = []
@@ -113,9 +126,10 @@ def calculate_in_polar(funcs, range_bottom, range_ceil, step=6):
             point_list[1] = str(round(point_list[1], 5))
             res.append(point_list)
             pointer += step
+    res.append(res[0])
     return res
 
 
 if __name__ == '__main__':
-    inputLatex = 'x^2 + y^2 = 1'
+    inputLatex = 'y=1/x'
     _calculate(inputLatex)
