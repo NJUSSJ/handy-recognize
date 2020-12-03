@@ -12,13 +12,6 @@ import datetime
 
 def convert_image_to_latex(image_uri=None):
     start = datetime.datetime.now()
-    if image_uri is None:
-        # test mode
-        file_path = '../../tmp/test3.jpg'
-        image_uri = base64.b64encode(open(file_path, 'rb').read()).decode()
-        f = open('image_base64.txt', 'w')
-        f.write(image_uri)
-        f.close()
 
     with open('.tmp/test4.jpg', 'wb') as file:
         file.write(base64.b64decode(image_uri))
@@ -44,11 +37,9 @@ def convert_image_to_latex(image_uri=None):
         if 'confidence' not in resp_data.keys() or resp_data['confidence'] < current_app.config[
             'MATHPIX_CONFIDENCE_THRESHOLD']:
             end = datetime.datetime.now()
-            end = datetime.datetime.now()
             print('recognize time: ' + str((end - start).microseconds) + ' us')
             return None
         if 'data' not in resp_data.keys():
-            end = datetime.datetime.now()
             end = datetime.datetime.now()
             print('recognize time: ' + str((end - start).microseconds) + ' us')
             return None
@@ -63,15 +54,7 @@ def convert_image_to_latex(image_uri=None):
     return None
 
 
-def get_latex_equation(latex_text):
-    try:
-        return _calculate(latex_text)
-    except Exception as e:
-        print(e)
-        return None
-
-
-def _calculate(latex_text=None):
+def calculate_points_set(latex_text=None):
     start = datetime.datetime.now()
     print(latex_text)
     range_bottom = -5
@@ -83,16 +66,16 @@ def _calculate(latex_text=None):
     print(funcs)
     res = []
     if len(funcs) == 1:
-        res = calculate_in_cartesian(funcs, range_bottom, range_ceil)
+        res = _calculate_in_cartesian(funcs, range_bottom, range_ceil)
     elif len(funcs) == 2:
-        res = calculate_in_polar(funcs, range_bottom, range_ceil)
+        res = _calculate_in_polar(funcs, range_bottom, range_ceil)
     end = datetime.datetime.now()
     print('calculate time: ' + str((end - start).microseconds) + ' us')
     return res
     # return sympy_expr.evalf()
 
 
-def calculate_in_cartesian(funcs, range_bottom, range_ceil, step=0.1):
+def _calculate_in_cartesian(funcs, range_bottom, range_ceil, step=0.1):
     x = sympy.symbols('x')
     res = []
     func = funcs[0]
@@ -110,7 +93,7 @@ def calculate_in_cartesian(funcs, range_bottom, range_ceil, step=0.1):
     return res
 
 
-def calculate_in_polar(funcs, range_bottom, range_ceil, step=9):
+def _calculate_in_polar(funcs, range_bottom, range_ceil, step=9):
     x = sympy.symbols('x')
     y = sympy.symbols('y')
     res = []
@@ -136,4 +119,4 @@ def calculate_in_polar(funcs, range_bottom, range_ceil, step=9):
 
 if __name__ == '__main__':
     inputLatex = 'y=1/x'
-    _calculate(inputLatex)
+    calculate(inputLatex)

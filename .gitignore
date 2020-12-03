@@ -30,3 +30,6 @@ tmux*.log
 
 # env file
 .env
+
+# concrete runserver script
+run_server.sh
