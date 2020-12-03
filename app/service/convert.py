@@ -44,9 +44,13 @@ def convert_image_to_latex(image_uri=None):
         if 'confidence' not in resp_data.keys() or resp_data['confidence'] < current_app.config[
             'MATHPIX_CONFIDENCE_THRESHOLD']:
             end = datetime.datetime.now()
+            end = datetime.datetime.now()
+            print('recognize time: ' + str((end - start).microseconds) + ' us')
             return None
         if 'data' not in resp_data.keys():
             end = datetime.datetime.now()
+            end = datetime.datetime.now()
+            print('recognize time: ' + str((end - start).microseconds) + ' us')
             return None
         for item in resp_data['data']:
             t, v = item['type'], item['value']
