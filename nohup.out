@@ -1,0 +1,599 @@
+[2021-04-22 21:20:06 +0800] [26896] [INFO] Starting gunicorn 20.0.4
+[2021-04-22 21:20:06 +0800] [26896] [INFO] Listening at: http://0.0.0.0:5000 (26896)
+[2021-04-22 21:20:06 +0800] [26896] [INFO] Using worker: threads
+[2021-04-22 21:20:06 +0800] [26899] [INFO] Booting worker with pid: 26899
+[2021-04-22 21:20:06 +0800] [26900] [INFO] Booting worker with pid: 26900
+[2021-04-22 21:20:06 +0800] [26903] [INFO] Booting worker with pid: 26903
+[2021-04-22 21:20:06 +0800] [26904] [INFO] Booting worker with pid: 26904
+[2021-04-22 21:27:25 +0800] [1185] [INFO] Starting gunicorn 20.0.4
+[2021-04-22 21:27:25 +0800] [1185] [INFO] Listening at: http://0.0.0.0:5000 (1185)
+[2021-04-22 21:27:25 +0800] [1185] [INFO] Using worker: threads
+[2021-04-22 21:27:25 +0800] [1188] [INFO] Booting worker with pid: 1188
+[2021-04-22 21:27:25 +0800] [1189] [INFO] Booting worker with pid: 1189
+[2021-04-22 21:27:25 +0800] [1191] [INFO] Booting worker with pid: 1191
+[2021-04-22 21:27:26 +0800] [1194] [INFO] Booting worker with pid: 1194
+[2021-04-22 21:39:44 +0800] [1191] [ERROR] Socket error processing request.
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 706, in urlopen
+    chunked=chunked,
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 445, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 440, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib64/python3.6/http/client.py", line 1346, in getresponse
+    response.begin()
+  File "/usr/lib64/python3.6/http/client.py", line 307, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib64/python3.6/http/client.py", line 268, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/usr/lib64/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+  File "/usr/lib64/python3.6/ssl.py", line 968, in recv_into
+    return self.read(nbytes, buffer)
+  File "/usr/lib64/python3.6/ssl.py", line 830, in read
+    return self._sslobj.read(len, buffer)
+  File "/usr/lib64/python3.6/ssl.py", line 587, in read
+    v = self._sslobj.read(len, buffer)
+ConnectionResetError: [Errno 104] Connection reset by peer
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 756, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/retry.py", line 531, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/packages/six.py", line 734, in reraise
+    raise value.with_traceback(tb)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 706, in urlopen
+    chunked=chunked,
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 445, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 440, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib64/python3.6/http/client.py", line 1346, in getresponse
+    response.begin()
+  File "/usr/lib64/python3.6/http/client.py", line 307, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib64/python3.6/http/client.py", line 268, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/usr/lib64/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+  File "/usr/lib64/python3.6/ssl.py", line 968, in recv_into
+    return self.read(nbytes, buffer)
+  File "/usr/lib64/python3.6/ssl.py", line 830, in read
+    return self._sslobj.read(len, buffer)
+  File "/usr/lib64/python3.6/ssl.py", line 587, in read
+    v = self._sslobj.read(len, buffer)
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/gthread.py", line 271, in handle
+    keepalive = self.handle_request(req, conn)
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/gthread.py", line 340, in handle_request
+    util.reraise(*sys.exc_info())
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/util.py", line 625, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/gthread.py", line 320, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/develop/handy-recognize/app/api/core.py", line 16, in convertUnity
+    latex = convert_image_to_latex(image_uri)
+  File "/root/develop/handy-recognize/app/service/convert.py", line 32, in convert_image_to_latex
+    'Content-type': 'application/json'
+  File "/usr/local/lib/python3.6/site-packages/requests/api.py", line 119, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+[2021-04-22 22:12:12 +0800] [1191] [ERROR] Socket error processing request.
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 706, in urlopen
+    chunked=chunked,
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 382, in _make_request
+    self._validate_conn(conn)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 1010, in _validate_conn
+    conn.connect()
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connection.py", line 421, in connect
+    tls_in_tls=tls_in_tls,
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/ssl_.py", line 429, in ssl_wrap_socket
+    sock, context, tls_in_tls, server_hostname=server_hostname
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/ssl_.py", line 472, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/usr/lib64/python3.6/ssl.py", line 365, in wrap_socket
+    _context=self, _session=session)
+  File "/usr/lib64/python3.6/ssl.py", line 773, in __init__
+    if timeout == 0.0:
+  File "/usr/lib64/python3.6/ssl.py", line 1033, in do_handshake
+    try:
+  File "/usr/lib64/python3.6/ssl.py", line 645, in do_handshake
+ssl.SSLZeroReturnError: TLS/SSL connection has been closed (EOF) (_ssl.c:877)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 756, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/retry.py", line 573, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.mathpix.com', port=443): Max retries exceeded with url: /v3/text (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:877)'),))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/gthread.py", line 271, in handle
+    keepalive = self.handle_request(req, conn)
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/gthread.py", line 340, in handle_request
+    util.reraise(*sys.exc_info())
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/util.py", line 625, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/gthread.py", line 320, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/develop/handy-recognize/app/api/core.py", line 16, in convertUnity
+    latex = convert_image_to_latex(image_uri)
+  File "/root/develop/handy-recognize/app/service/convert.py", line 32, in convert_image_to_latex
+    'Content-type': 'application/json'
+  File "/usr/local/lib/python3.6/site-packages/requests/api.py", line 119, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 514, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='api.mathpix.com', port=443): Max retries exceeded with url: /v3/text (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:877)'),))
+[2021-04-22 23:57:39 +0800] [1194] [INFO] Parent changed, shutting down: <Worker 1194>
+[2021-04-22 23:57:39 +0800] [1194] [INFO] Worker exiting (pid: 1194)
+recognize time: 1 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 3 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 1 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 2 s
+null
+y = \sin{(\frac{x}{2} )}
+transform result: y = \sin{(\frac{x}{2} )}
+[sin(x/2)]
+calculate time: 0 s
+
+y = - \sin{(\pi - \frac{x}{2} )}
+transform result: y = - \sin{(\pi - \frac{x}{2} )}
+[-sin(pi - x/2)]
+calculate time: 0 s
+
+recognize time: 1 s
+null
+recognize time: 1 s
+null
+recognize time: 1 s
+null
+recognize time: 3 s
+null
+recognize time: 1 s
+recognize result: y=\sin x
+[sin(x)]
+calculate time: 0 s
+
+y = - \sin{(\pi - x )}
+transform result: y = - \sin{(\pi - x )}
+[-sin(pi - x)]
+calculate time: 0 s
+
+recognize time: 1 s
+null
+y = - \sin{(\pi - x )}
+transform result: y = - \sin{(\pi - x )}
+[-sin(pi - x)]
+calculate time: 0 s
+
+recognize time: 0 s
+null
+y = - \sin{(\frac{\pi}{2} - \frac{x}{2} )}
+transform result: y = - \sin{(\frac{\pi}{2} - \frac{x}{2} )}
+[-sin(pi/2 - x/2)]
+calculate time: 0 s
+
+recognize time: 8 s
+recognize result: y=\log _{2} x
+[log(x)/log(2)]
+2.32192809488736 + 4.53236014182719*I
+2.29278174922785 + 4.53236014182719*I
+2.26303440583379 + 4.53236014182719*I
+2.23266075679027 + 4.53236014182719*I
+2.20163386116965 + 4.53236014182719*I
+2.16992500144231 + 4.53236014182719*I
+2.13750352374994 + 4.53236014182719*I
+2.10433665981474 + 4.53236014182719*I
+2.0703893278914 + 4.53236014182719*I
+2.03562390973072 + 4.53236014182719*I
+2.0 + 4.53236014182719*I
+1.96347412397489 + 4.53236014182719*I
+1.92599941855622 + 4.53236014182719*I
+1.88752527074159 + 4.53236014182719*I
+1.84799690655495 + 4.53236014182719*I
+1.8073549220576 + 4.53236014182719*I
+1.76553474636298 + 4.53236014182719*I
+1.72246602447109 + 4.53236014182719*I
+1.67807190511264 + 4.53236014182719*I
+1.63226821549951 + 4.53236014182719*I
+1.58496250072116 + 4.53236014182719*I
+1.53605290024021 + 4.53236014182719*I
+1.48542682717024 + 4.53236014182719*I
+1.43295940727611 + 4.53236014182719*I
+1.37851162325373 + 4.53236014182719*I
+1.32192809488736 + 4.53236014182719*I
+1.26303440583379 + 4.53236014182719*I
+1.20163386116965 + 4.53236014182719*I
+1.13750352374994 + 4.53236014182719*I
+1.0703893278914 + 4.53236014182719*I
+1.0 + 4.53236014182719*I
+0.925999418556223 + 4.53236014182719*I
+0.84799690655495 + 4.53236014182719*I
+0.765534746362977 + 4.53236014182719*I
+0.678071905112638 + 4.53236014182719*I
+0.584962500721156 + 4.53236014182719*I
+0.485426827170242 + 4.53236014182719*I
+0.37851162325373 + 4.53236014182719*I
+0.263034405833794 + 4.53236014182719*I
+0.137503523749935 + 4.53236014182719*I
+4.53236014182719*I
+-0.15200309344505 + 4.53236014182719*I
+-0.321928094887362 + 4.53236014182719*I
+-0.514573172829758 + 4.53236014182719*I
+-0.736965594166206 + 4.53236014182719*I
+-1.0 + 4.53236014182719*I
+-1.32192809488736 + 4.53236014182719*I
+-1.73696559416621 + 4.53236014182719*I
+-2.32192809488736 + 4.53236014182719*I
+-3.32192809488736 + 4.53236014182719*I
+calculate time: 0 s
+
+recognize time: 27 s
+recognize result: y=\frac{1}{x}
+[1/x]
+calculate time: 0 s
+
+recognize time: 1 s
+recognize result: x \rightarrow \frac{x}{2}
+recognize time: 1 s
+null
+recognize time: 1 s
+null
+recognize time: 2 s
+recognize result: \frac{\pi}{2}
+[]
+calculate time: 0 s
+
+recognize time: 1 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 1 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 0 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+y = \sin{(\frac{x}{2} )}
+transform result: y = \sin{(\frac{x}{2} )}
+[sin(x/2)]
+calculate time: 0 s
+
+recognize time: 1 s
+null
+recognize time: 1 s
+null
+recognize time: 1 s
+recognize result: x \rightarrow x-\frac{\pi}{2}
+recognize time: 0 s
+null
+recognize time: 1 s
+recognize result: y=\sin x
+[sin(x)]
+calculate time: 0 s
+
+[2021-04-22 23:57:39 +0800] [1191] [INFO] Parent changed, shutting down: <Worker 1191>
+[2021-04-22 23:57:39 +0800] [1191] [INFO] Worker exiting (pid: 1191)
+recognize time: 1 s
+recognize result: y=\sin x
+[sin(x)]
+calculate time: 0 s
+
+recognize time: 1 s
+recognize result: x \rightarrow \frac{x}{2}
+recognize time: 0 s
+recognize result: x \rightarrow x-2 \pi
+recognize time: 1 s
+null
+recognize time: 1 s
+null
+recognize time: 2 s
+null
+recognize time: 1 s
+null
+y = - \sin{(\frac{\pi}{4} - \frac{x}{2} )}
+transform result: y = - \sin{(\frac{\pi}{4} - \frac{x}{2} )}
+[-sin(pi/4 - x/2)]
+calculate time: 0 s
+
+recognize time: 0 s
+null
+recognize time: 1 s
+null
+recognize time: 1 s
+null
+recognize time: 1 s
+null
+recognize time: 1 s
+recognize result: x \rightarrow x-\pi
+recognize time: 1 s
+null
+recognize time: 3 s
+recognize result: y=2 x
+[2*x]
+calculate time: 0 s
+
+recognize time: 7 s
+recognize result: y=\frac{1}{x}
+[1/x]
+calculate time: 0 s
+
+recognize time: 2 s
+recognize result: y^{2}+x^{2}=1
+[-sqrt(1 - x**2), sqrt(1 - x**2)]
+calculate time: 3 s
+
+recognize time: 2 s
+recognize result: y=\sin x
+[sin(x)]
+calculate time: 0 s
+
+recognize time: 2 s
+null
+recognize time: 27 s
+null
+recognize time: 2 s
+recognize result: y=\sin x
+[sin(x)]
+calculate time: 0 s
+
+y = \sin{(\frac{x}{2} )}
+transform result: y = \sin{(\frac{x}{2} )}
+[sin(x/2)]
+calculate time: 0 s
+
+recognize time: 1 s
+null
+recognize time: 2 s
+null
+recognize time: 0 s
+recognize result: y=\sin x
+[sin(x)]
+calculate time: 0 s
+
+recognize time: 0 s
+recognize result: x \rightarrow \frac{x}{2}
+recognize time: 1 s
+null
+y = - \sin{(\frac{\pi}{2} - x )}
+transform result: y = - \sin{(\frac{\pi}{2} - x )}
+[-sin(pi/2 - x)]
+calculate time: 0 s
+
+recognize time: 0 s
+null
+recognize time: 1 s
+null
+[2021-04-22 23:57:39 +0800] [1188] [INFO] Parent changed, shutting down: <Worker 1188>
+[2021-04-22 23:57:39 +0800] [1188] [INFO] Worker exiting (pid: 1188)
+recognize time: 1 s
+recognize result: x \rightarrow x-\pi
+recognize time: 1 s
+null
+recognize time: 1 s
+null
+recognize time: 0 s
+null
+recognize time: 5 s
+null
+recognize time: 3 s
+null
+recognize time: 6 s
+null
+recognize time: 2 s
+null
+recognize time: 1 s
+null
+recognize time: 0 s
+null
+[2021-04-22 23:57:39 +0800] [1189] [INFO] Parent changed, shutting down: <Worker 1189>
+[2021-04-22 23:57:39 +0800] [1189] [INFO] Worker exiting (pid: 1189)
+recognize time: 0 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 0 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 2 s
+recognize result: x \rightarrow x-\frac{\pi}{2}
+recognize time: 1 s
+recognize result: x \rightarrow x-\pi
+recognize time: 0 s
+null
+recognize time: 2 s
+null
+recognize time: 1 s
+null
+recognize time: 2 s
+null
+recognize time: 1 s
+null
+recognize time: 1 s
+null
+[2021-04-24 13:13:40 +0800] [13574] [INFO] Starting gunicorn 20.0.4
+[2021-04-24 13:13:40 +0800] [13574] [INFO] Listening at: http://0.0.0.0:5000 (13574)
+[2021-04-24 13:13:40 +0800] [13574] [INFO] Using worker: threads
+[2021-04-24 13:13:40 +0800] [13577] [INFO] Booting worker with pid: 13577
+[2021-04-24 13:13:40 +0800] [13578] [INFO] Booting worker with pid: 13578
+[2021-04-24 13:13:40 +0800] [13580] [INFO] Booting worker with pid: 13580
+[2021-04-24 13:13:40 +0800] [13581] [INFO] Booting worker with pid: 13581
+[2021-04-24 13:27:45 +0800] [13581] [INFO] Parent changed, shutting down: <Worker 13581>
+[2021-04-24 13:27:45 +0800] [13581] [INFO] Worker exiting (pid: 13581)
+[2021-04-24 13:27:45 +0800] [13580] [INFO] Parent changed, shutting down: <Worker 13580>
+[2021-04-24 13:27:45 +0800] [13580] [INFO] Worker exiting (pid: 13580)
+[2021-04-24 13:27:45 +0800] [13577] [INFO] Parent changed, shutting down: <Worker 13577>
+[2021-04-24 13:27:45 +0800] [13577] [INFO] Worker exiting (pid: 13577)
+recognize time: 0 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 2 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 0 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+recognize time: 0 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[sin(pi/3 + x)]
+calculate time: 0 s
+
+[2021-04-24 13:27:46 +0800] [13578] [INFO] Parent changed, shutting down: <Worker 13578>
+[2021-04-24 13:27:46 +0800] [13578] [INFO] Worker exiting (pid: 13578)
+[2021-04-24 14:10:56 +0800] [13788] [INFO] Starting gunicorn 20.0.4
+[2021-04-24 14:10:56 +0800] [13788] [INFO] Listening at: http://0.0.0.0:5000 (13788)
+[2021-04-24 14:10:56 +0800] [13788] [INFO] Using worker: threads
+[2021-04-24 14:10:56 +0800] [13791] [INFO] Booting worker with pid: 13791
+[2021-04-24 14:10:57 +0800] [13792] [INFO] Booting worker with pid: 13792
+[2021-04-24 14:10:57 +0800] [13794] [INFO] Booting worker with pid: 13794
+[2021-04-24 14:10:57 +0800] [13796] [INFO] Booting worker with pid: 13796
+[2021-04-24 14:52:15 +0800] [13794] [INFO] Parent changed, shutting down: <Worker 13794>
+[2021-04-24 14:52:15 +0800] [13794] [INFO] Worker exiting (pid: 13794)
+[2021-04-24 14:52:15 +0800] [13796] [INFO] Parent changed, shutting down: <Worker 13796>
+[2021-04-24 14:52:15 +0800] [13796] [INFO] Worker exiting (pid: 13796)
+recognize time: 0 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+recognize time: 6 s
+recognize result: y=\sin x
+[sin(x)]
+calculate time: 0 s
+
+recognize time: 39 s
+recognize result: y=\sin x
+[sin(x)]
+calculate time: 0 s
+
+[2021-04-24 14:52:15 +0800] [13791] [INFO] Parent changed, shutting down: <Worker 13791>
+[2021-04-24 14:52:15 +0800] [13791] [INFO] Worker exiting (pid: 13791)
+recognize time: 0 s
+recognize result: y=\sin \left(x+\frac{\pi}{3}\right)
+[2021-04-24 14:52:16 +0800] [13792] [INFO] Parent changed, shutting down: <Worker 13792>
+[2021-04-24 14:52:16 +0800] [13792] [INFO] Worker exiting (pid: 13792)
+[2021-04-29 11:01:29 +0800] [24692] [INFO] Starting gunicorn 20.0.4
+[2021-04-29 11:01:29 +0800] [24692] [INFO] Listening at: http://0.0.0.0:5000 (24692)
+[2021-04-29 11:01:29 +0800] [24692] [INFO] Using worker: threads
+[2021-04-29 11:01:29 +0800] [24695] [INFO] Booting worker with pid: 24695
+[2021-04-29 11:01:29 +0800] [24696] [INFO] Booting worker with pid: 24696
+[2021-04-29 11:01:29 +0800] [24698] [INFO] Booting worker with pid: 24698
+[2021-04-29 11:01:29 +0800] [24699] [INFO] Booting worker with pid: 24699
+usage: tex2im [-h] [--version] [-v] [-d] [-k] [-s FONT_SIZE]
+              [-b BACKGROUND_COLOR] [-t TEXT_COLOR] [-x PREAMBLE] [-n] [-C]
+              [-a ANTI_ALIASING] [-B BORDER] [-r RESOLUTION] [-z]
+              [-f OUTPUT_FORMAT] [-o OUTPUT_BASENAME]
+              [latex_snippet_or_file [latex_snippet_or_file ...]]
+tex2im: error: unrecognized arguments: -1+
+[2021-05-05 12:58:29 +0800] [6225] [INFO] Booting worker with pid: 6225
+[2021-05-06 22:21:19 +0800] [8191] [INFO] Starting gunicorn 20.0.4
+[2021-05-06 22:21:19 +0800] [8191] [INFO] Listening at: http://0.0.0.0:5000 (8191)
+[2021-05-06 22:21:19 +0800] [8191] [INFO] Using worker: threads
+[2021-05-06 22:21:19 +0800] [8194] [INFO] Booting worker with pid: 8194
+[2021-05-06 22:21:19 +0800] [8195] [INFO] Booting worker with pid: 8195
+[2021-05-06 22:21:19 +0800] [8197] [INFO] Booting worker with pid: 8197
+[2021-05-06 22:21:19 +0800] [8199] [INFO] Booting worker with pid: 8199

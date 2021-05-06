@@ -11,16 +11,16 @@ import datetime
 
 
 def convert_image_to_latex(image_uri=None):
-    start = datetime.datetime.now()
 
-    with open('.tmp/test4.jpg', 'wb') as file:
-        file.write(base64.b64decode(image_uri))
-    image_uri = "data:image/jpg;base64," + image_uri
+
+    ## with open('static/test4.png', 'wb') as file:
+    ##     file.write(base64.b64decode(image_uri))
+    image_uri = "data:image/png;base64," + image_uri
     resp = requests.post(
         url=current_app.config['MATHPIX_API'],
         data=json.dumps({
             'src': image_uri,
-            'formats': ['text', 'data'],
+            'formats': ['text', 'data', 'html'],
             'data_options': {
                 'include_latex': True,
                 'include_asciimath': True
@@ -36,30 +36,25 @@ def convert_image_to_latex(image_uri=None):
         resp_data = json.loads(resp.text)
         if 'confidence' not in resp_data.keys() or resp_data['confidence'] < current_app.config[
             'MATHPIX_CONFIDENCE_THRESHOLD']:
-            end = datetime.datetime.now()
-            print('recognize time: ' + str((end - start).microseconds) + ' us')
             return None
         if 'data' not in resp_data.keys():
-            end = datetime.datetime.now()
-            print('recognize time: ' + str((end - start).microseconds) + ' us')
             return None
         for item in resp_data['data']:
             t, v = item['type'], item['value']
             if t == 'latex':
-                end = datetime.datetime.now()
-                print('recognize time: ' + str((end - start).microseconds) + ' us')
                 return v
-    end = datetime.datetime.now()
-    print('recognize time: ' + str((end - start).microseconds) + ' us')
     return None
 
 
 def calculate_points_set(latex_text=None):
     start = datetime.datetime.now()
-    print(latex_text)
+    latex_text = latex_text.replace('\\left', '').replace('\\right', '')
     range_bottom = -5
     range_ceil = 5
-    sympy_expr = process_sympy(latex_text)
+    try:
+        sympy_expr = process_sympy(latex_text)
+    except:
+        return []
     f = sympy_expr.rewrite(Add)
     y = sympy.symbols('y')
     funcs = sympy.solve(f, y)
@@ -70,7 +65,7 @@ def calculate_points_set(latex_text=None):
     elif len(funcs) == 2:
         res = _calculate_in_polar(funcs, range_bottom, range_ceil)
     end = datetime.datetime.now()
-    print('calculate time: ' + str((end - start).microseconds) + ' us')
+    print('calculate time: ' + str((end - start).seconds) + ' s\n')
     return res
     # return sympy_expr.evalf()
 
@@ -87,8 +82,10 @@ def _calculate_in_cartesian(funcs, range_bottom, range_ceil, step=0.1):
         if pointer == 0:
             pointer += step
             continue
-        if func.evalf(subs={x: pointer}).is_real:
-            res.append([str(pointer), str(round(func.evalf(subs={x: pointer}), 5))])
+        if func.evalf(subs={x: pointer, 'pi': math.pi}).is_real:
+            res.append([str(pointer), str(round(func.evalf(subs={x: pointer,  'pi': math.pi}), 5))])
+        else:
+            print(func.evalf(subs={x: pointer, 'pi': math.pi}))
         pointer += step
     return res
 
@@ -115,8 +112,3 @@ def _calculate_in_polar(funcs, range_bottom, range_ceil, step=9):
             pointer += step
     res.append(res[0])
     return res
-
-
-if __name__ == '__main__':
-    inputLatex = 'y=1/x'
-    calculate(inputLatex)
