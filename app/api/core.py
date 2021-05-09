@@ -12,15 +12,12 @@ from app.service.latex2image import latex2image
 def convertUnity():
     if request.method == 'POST':
         image_uri = str(request.data.decode())
-        start = datetime.datetime.now()
         latex = convert_image_to_latex(image_uri)
-        end = datetime.datetime.now()
-        print('recognize time: ' + str((end - start).seconds) + ' s')
         if latex is None:
             print("null")
             return build_resp(code=-1, msg='The provided text can not be recognized.')
         print('recognize result: ' + latex)
-        if '\\rightarrow' not in latex:
+        if '\\rightarrow' not in latex and '\\longrightarrow' not in latex:
             points = calculate_points_set(latex)
         else:
             points = []
@@ -30,6 +27,33 @@ def convertUnity():
             'points': points,
             'image': latex_image
         })
+
+
+@api.route('/recognize', methods=['GET'])
+def recognize():
+    json_data = request.form
+    image = str(json_data['image'])
+    latex = convert_image_to_latex(image)
+    if latex is None:
+        print("null")
+        return build_resp(code=-1, msg='The provided text can not be recognized.')
+    print('recognize result: ' + latex)
+    latex_image = latex2image(latex)
+    return build_resp(code=0, data={
+        'latex': latex,
+        'image': latex_image
+    })
+
+
+@api.route('/getDataSet', methods=['GET'])
+def getDataSet():
+    json_data = request.form
+    latex = str(json_data['latex'])
+    if '\\rightarrow' not in latex and '\\longrightarrow' not in latex:
+        points = calculate_points_set(latex)
+    return build_resp(code=0, data={
+        'points': points
+    })
 
 
 @api.route('/transform', methods=['POST'])
@@ -54,6 +78,7 @@ def transform():
 def test():
     convert_image_to_latex()
     return 'Converted!'
+
 
 @api.route('/phieldTest', methods=['GET'])
 def phieldTest():
