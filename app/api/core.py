@@ -29,7 +29,7 @@ def convertUnity():
         })
 
 
-@api.route('/recognize', methods=['GET'])
+@api.route('/recognize', methods=['POST'])
 def recognize():
     json_data = request.form
     image = str(json_data['image'])
@@ -45,7 +45,7 @@ def recognize():
     })
 
 
-@api.route('/getDataSet', methods=['GET'])
+@api.route('/getDataSet', methods=['POST'])
 def getDataSet():
     json_data = request.form
     latex = str(json_data['latex'])
