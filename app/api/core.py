@@ -21,11 +21,11 @@ def convertUnity():
             points = calculate_points_set(latex)
         else:
             points = []
-        latex_image = latex2image(latex)
+        # latex_image = latex2image(latex)
         return build_resp(code=0, data={
             'latex': latex,
             'points': points,
-            'image': latex_image
+            # 'image': latex_image
         })
 
 
@@ -38,10 +38,10 @@ def recognize():
         print("null")
         return build_resp(code=-1, msg='The provided text can not be recognized.')
     print('recognize result: ' + latex)
-    latex_image = latex2image(latex)
+    # latex_image = latex2image(latex)
     return build_resp(code=0, data={
         'latex': latex,
-        'image': latex_image
+        # 'image': latex_image
     })
 
 
@@ -66,11 +66,11 @@ def transform():
     points = calculate_points_set(result_latex)
     if points is None:
         return build_resp(code=-1, msg='transform failed.')
-    latex_image = latex2image(result_latex)
+    # latex_image = latex2image(result_latex)
     return build_resp(code=0, data={
         'latex': result_latex,
         'points': points,
-        'image': latex_image
+        # 'image': latex_image
     })
 
 
